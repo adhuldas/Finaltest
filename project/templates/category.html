@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+         {{category.desc |truncatewords:150}}
+    {% else %}
+         Welcome to Amz Gallery where you experience next generation Capturing.
+    {% endif %}
+
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{category.name}}-AMZ GALLERY
+    {% else %}
+        Experience New Way Of Perception.
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if category %}
+        <div class="row my_row_class">
+            <div class="mx-auto">
+                <a href="{% url 'projectapp:allProdcat'%}">Back</a>
+                <p>{{category.name}}</p>
+            </div>
+        </div>
+    {% endif %}
+<div>
+    {% if category %}
+        <img src="{{category.img.url}}" alt="{{category.name}}" style="height:336px; width:280px;">
+</div><br>
+<div>
+    <h1>{{category.name}}</h1>
+    <p>{{category.desc}}</p>
+</div>
+    {% else %}
+        <div>
+           <center><img src="{% static 'img/AMZ GALLERY (1).png' %}" alt="" style="height:400px; width:1349px;"></center>
+        </div><br>
+        <div>
+            <h1>GALLERY COLLECTIONS</h1>
+            <p>Photographers are artists with the camera, using a blend of technical skills and an artistic eye to take pictures of people, places, landscapes, food, you name it. Photographers can work as fine artists, wedding and event photographers.</p>
+        </div>
+    {% endif %}
+<div class="container">
+    <div class="row max-auto">
+        {% for product in products %}
+            <div class="my_bottom_margin col-9-sm-12 col-md-4 col-lg-4">
+                <div class="card text-center" style="width: 18rem;">
+                    <a href="{{product.get_url}}"><img class="card-img-top my_image" src="{{product.img.url}}" alt="{{product.name}}" style="height:336px; width:280px;"></a>
+                    <div>
+                        <h4>{{product.name}}</h4>
+                        <a class="btn btn-danger" href="{% url 'delete' product.pk %}">Delete</a>
+                        <a class="btn btn-success" href="{% url 'update' product.pk %}">Update</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+     <div class="mx-auto">
+         <div class="text-center">
+             {% for pg in products.paginator.page_range %}
+             <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} activate {% endif %}">{{pg}}</a>
+             {% endfor %}
+         </div>
+    </div>
+</div>
+{% endblock %}

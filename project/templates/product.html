@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {{product.desc | truncatewords:150}}
+{% endblock %}
+{% block title %}
+    {{product.name}}-AMZ GALLERY
+{% endblock %}
+{% block content %}
+<div class="row my_product_row_class">
+    <div class="mx-auto">
+        <p><a href="{{product.name.category.get.url }}"></a>{{product.name}}</p>
+    </div>
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+                <div style="min-width:18rem;">
+                <img src="{{pro.img.url}}" alt="{{pro.name}}" style="height:336px; width:280px;">
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+                <h1 class="my_pro_title">{{pro.name}}</h1>
+                <p class="my_title">Product Description</p>
+                <p class="text-justify my_pro_text">{{pro.desc}}</p>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
